@@ -1,5 +1,7 @@
 # Uberssh
 
+[![Tag](https://img.shields.io/github/tag/baschtl/uberssh.svg?style=flat-square)](https://github.com/baschtl/uberssh/releases) [![Build Status](https://img.shields.io/travis/baschtl/uberssh.svg?style=flat-square)](https://travis-ci.org/baschtl/uberssh) [![Code Climate](https://img.shields.io/codeclimate/github/baschtl/uberssh.svg?style=flat-square)](https://codeclimate.com/github/baschtl/uberssh)
+
 Uberssh is a script to select to which of your [Uberspaces](https://uberspace.de/) you want to connect to via ssh in just a few key strokes.
 
 The script was initially written by [pixelpogo](https://github.com/pixelpogo/).
