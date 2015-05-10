@@ -52,8 +52,10 @@ module Uberssh
         
         selected_index   = gets.chomp.to_i
         selected_account = manager.accounts[selected_index - 1]
+        raise "The number you gave was not on the list." unless selected_account
       else
         selected_account = manager.account_from_name(account_name)
+        raise "The given Uberspace account was not found." unless selected_account
       end
 
       system "clear"
