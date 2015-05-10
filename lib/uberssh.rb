@@ -1,10 +1,9 @@
-require "uberssh/version"
+require "uberssh/app"
 require "uberssh/account"
 require "uberssh/account_manager"
-require "uberssh/app"
+require "uberssh/version"
 
 require 'optparse'
-require 'ostruct'
 require 'etc'
 require 'yaml'
 
