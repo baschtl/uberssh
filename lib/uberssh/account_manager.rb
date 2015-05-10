@@ -24,11 +24,6 @@ module Uberssh
       end
     end
 
-    def ssh(account)
-      raise "Unknown Uberspace account." unless account
-      "ssh -l #{account.name} #{account.hostname} -i #{account.ssh_key}"
-    end
-
     private
 
     def load_accounts
