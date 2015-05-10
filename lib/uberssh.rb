@@ -1,4 +1,5 @@
 require "uberssh/version"
+require "uberssh/account"
 require "uberssh/account_manager"
 
 require 'optparse'
@@ -23,6 +24,7 @@ module Uberssh
       end
 
       opts.on_tail("-a", "--account ACCOUNTNAME", "Specify your account") do |a|
+        # TODO
         options.account = a
       end
 
@@ -37,26 +39,25 @@ module Uberssh
 
     begin
 
+      manager = AccountManager.new
+
       if options.account.nil?
         puts "\n============================================================="
         puts "            uberssh - ssh to your uberspace"
         puts "=============================================================\n"
 
-        accounts = []
-        AccountManager.accounts.each_pair do |account, settings|
-          accounts << account
-          puts "[#{accounts.size}] #{settings['project']}"
+        manager.accounts.each_with_index do |account, index|
+          puts "[#{index + 1}] #{account.project}"
         end
         print "\n--> Please select account: "
-        index = gets.chomp.to_i
-        options.account = accounts[index - 1]
+        selected_index = gets.chomp.to_i
+        options.account = manager.accounts[selected_index - 1]
       end
 
-
       system "clear"
-      puts "Connecting to #{AccountManager.account(options.account)['project'].upcase}...\n"
+      puts "Connecting to #{options.account.project}...\n"
 
-      AccountManager.ssh(options.account).each_line do |ssh|
+      manager.ssh(options.account).each_line do |ssh|
         puts ssh
         puts "\n"
         exec ssh
