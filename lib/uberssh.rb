@@ -47,11 +47,10 @@ module Uberssh
         puts "            uberssh - ssh to your uberspace"
         puts "=============================================================\n"
 
-        manager.accounts.each_with_index do |account, index|
-          puts "[#{index + 1}] #{account.project}"
-        end
+        manager.print_accounts
         print "\n--> Please select account: "
-        selected_index = gets.chomp.to_i
+        
+        selected_index   = gets.chomp.to_i
         selected_account = manager.accounts[selected_index - 1]
       else
         selected_account = manager.account_from_name(account_name)
