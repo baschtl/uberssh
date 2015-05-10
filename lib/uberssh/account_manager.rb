@@ -31,7 +31,7 @@ module Uberssh
     end
 
     def load_accounts
-      raise "No uberssh configuration found in #{config_file}." unless File.exist?(CONFIG_FILE)
+      raise "No uberssh configuration found in #{config_file}." unless File.exist?(config_file)
 
       config = YAML.load_file(config_file)['accounts']
       config.each_pair do |k ,v|
