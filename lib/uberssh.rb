@@ -5,11 +5,13 @@ require "uberssh/account_manager"
 require 'optparse'
 require 'ostruct'
 require 'etc'
+require 'yaml'
 
 module Uberssh
 
   def self.connect!
-    options = OpenStruct.new
+    account_name = nil
+  
     OptionParser.new do |opts|
 
       opts.banner     = "Uberssh"
@@ -23,9 +25,8 @@ module Uberssh
         exit
       end
 
-      opts.on_tail("-a", "--account ACCOUNTNAME", "Specify your account") do |a|
-        # TODO
-        options.account = a
+      opts.on_tail("-a", "--account ACCOUNTNAME", "Specify your account") do |name|
+        account_name = name
       end
 
       begin
@@ -38,10 +39,10 @@ module Uberssh
     end
 
     begin
+      manager          = AccountManager.new
+      selected_account = nil
 
-      manager = AccountManager.new
-
-      if options.account.nil?
+      unless account_name
         puts "\n============================================================="
         puts "            uberssh - ssh to your uberspace"
         puts "=============================================================\n"
@@ -51,13 +52,15 @@ module Uberssh
         end
         print "\n--> Please select account: "
         selected_index = gets.chomp.to_i
-        options.account = manager.accounts[selected_index - 1]
+        selected_account = manager.accounts[selected_index - 1]
+      else
+        selected_account = manager.account_from_name(account_name)
       end
 
       system "clear"
-      puts "Connecting to #{options.account.project}...\n"
+      puts "Connecting to #{selected_account.project}...\n"
 
-      manager.ssh(options.account).each_line do |ssh|
+      manager.ssh(selected_account).each_line do |ssh|
         puts ssh
         puts "\n"
         exec ssh

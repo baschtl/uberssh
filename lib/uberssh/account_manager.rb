@@ -1,5 +1,3 @@
-require 'yaml'
-
 module Uberssh
 
   class AccountManager
@@ -14,6 +12,10 @@ module Uberssh
       load_accounts if @accounts.empty?
 
       @accounts
+    end
+
+    def account_from_name(name)
+      accounts.detect { |a| a.name == name }
     end
 
     def ssh(account)
