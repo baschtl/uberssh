@@ -11,7 +11,6 @@ module Uberssh
     end
 
     def accounts
-      raise "No uberssh configuration found in #{CONFIG_FILE}." unless File.exist?(CONFIG_FILE)
       load_accounts if @accounts.empty?
 
       @accounts
@@ -25,6 +24,8 @@ module Uberssh
     private
 
     def load_accounts
+      raise "No uberssh configuration found in #{CONFIG_FILE}." unless File.exist?(CONFIG_FILE)
+      
       config = YAML.load_file(CONFIG_FILE)['accounts']
       config.each_pair do |k ,v|
         @accounts << Account.new(k, v)  
