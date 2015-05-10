@@ -14,19 +14,18 @@ module Uberssh
     account_name = nil
   
     OptionParser.new do |opts|
+      opts.banner = "Uberssh"
 
-      opts.banner     = "Uberssh"
-      opts.define_head  "SSH to your uberspace"
+      opts.define_head  "SSH to your Uberspace"
       opts.separator    ""
       opts.separator    "Options:"
 
       opts.on_tail("--help", "Show this message") do
         puts opts
-        puts "\nTo be written...\n\n"
         exit
       end
 
-      opts.on_tail("-a", "--account ACCOUNTNAME", "Specify your account") do |name|
+      opts.on_tail("-a", "--account ACCOUNTNAME", "Specify your Uberspace account.") do |name|
         account_name = name
       end
 
@@ -36,7 +35,6 @@ module Uberssh
         puts opts
         exit 1
       end
-
     end
 
     App.new(account_name: account_name).start
