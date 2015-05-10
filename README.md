@@ -23,15 +23,19 @@ To install the gem use the following command:
     foo:                              # your Uberspace account name
       project: "My Foo"               # an arbitrary description of the project
       hostname: cepheus.uberspace.de  # the hostname of your Uberspace
-      ssh-key: ~/.ssh/uberspace_rsa   # the ssh key used to connect to your Uberspace
+      ssh_key: ~/.ssh/uberspace_rsa   # the ssh key used to connect to your Uberspace
     bar:
       project: "My Bar"
       hostname: perseus.uberspace.de
-      ssh-key: ~/.ssh/uberspace_rsa
+      ssh_key: ~/.ssh/uberspace_rsa
     # ...
   ```
 
 3. Run `uberssh` from your command line.
+
+## Upgrading from 0.1.0 to 0.2.0
+
+The configuration file format has changed slightly in version 0.2.0. The name of the key `ssh-key` was changed to `ssh_key`.
 
 ## Development
 
