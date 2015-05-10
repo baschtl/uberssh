@@ -1,6 +1,7 @@
 require "uberssh/version"
 require "uberssh/account"
 require "uberssh/account_manager"
+require "uberssh/app"
 
 require 'optparse'
 require 'ostruct'
@@ -9,7 +10,7 @@ require 'yaml'
 
 module Uberssh
 
-  def self.connect!
+  def self.run
     account_name = nil
   
     OptionParser.new do |opts|
@@ -38,39 +39,7 @@ module Uberssh
 
     end
 
-    begin
-      manager          = AccountManager.new
-      selected_account = nil
-
-      unless account_name
-        puts "\n============================================================="
-        puts "            uberssh - ssh to your uberspace"
-        puts "=============================================================\n"
-
-        manager.print_accounts
-        print "\n--> Please select account: "
-        
-        selected_index   = gets.chomp.to_i
-        selected_account = manager.accounts[selected_index - 1]
-        raise "The number you gave was not on the list." unless selected_account
-      else
-        selected_account = manager.account_from_name(account_name)
-        raise "The given Uberspace account was not found." unless selected_account
-      end
-
-      system "clear"
-      puts "Connecting to #{selected_account.project}...\n"
-
-      manager.ssh(selected_account).each_line do |ssh|
-        puts ssh
-        puts "\n"
-        exec ssh
-      end
-
-    rescue Exception => e
-      puts e.message
-    end
-
+    App.new(account_name: account_name).start
   end
 
 end
