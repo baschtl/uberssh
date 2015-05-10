@@ -1,0 +1,9 @@
+accounts:
+  foo:
+    project: "My Foo"  
+    hostname: cepheus.uberspace.de
+    ssh-key: ~/.ssh/uberspace_rsa
+  bar:
+    project: "My Bar"
+    hostname: perseus.uberspace.de
+    ssh-key: ~/.ssh/uberspace_rsa
